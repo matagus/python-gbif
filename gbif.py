@@ -135,7 +135,7 @@ class Client(Resource):
             maxresults=count, stylesheet="")
 
     def get_by(self, key):
-        if not isinstance(key, (int, log)):
+        if not isinstance(key, (int, long)):
             print "key param must be an integer number."
             return None
 
