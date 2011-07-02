@@ -151,7 +151,7 @@ class Client(Resource):
         return items
 
     def _to_item(self, xml_concept):
-        key = xml_concept.getAttribute("gbifKey").encode("utf-8")
+        key = long(xml_concept.getAttribute("gbifKey").encode("utf-8"))
         status = xml_concept.getAttribute("status").encode("utf-8")
         primary = xml_concept.getElementsByTagName("tc:primary")[0].firstChild.nodeValue == "true"
         fullname = xml_concept.getElementsByTagName("tn:nameComplete")[0].firstChild.nodeValue.encode("utf-8")
