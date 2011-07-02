@@ -138,7 +138,7 @@ class Client(Resource):
         if not isinstance(key, (int, long)):
             raise TypeError("Key param must be an integer number")
 
-        return self.get("/key/%d/" % key, stylesheet="")
+        return self.get("/get/%d/" % key, stylesheet="")
 
     def request(self, *args, **kwargs):
         resp = super(Client, self).request(*args, **kwargs)
