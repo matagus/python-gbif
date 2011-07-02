@@ -131,9 +131,9 @@ class Client(Resource):
     def search(self, name, start=0, count=50):
         # TODO: add param
         # rank: kingdom, phylum, class, order, family, genus, species, infraspecific
-        return self.get("/list/", scientificname=name, startindex=start, 
+        return self.get("/list/", scientificname=name, startindex=start,
             maxresults=count, stylesheet="")
-    
+
     def get_by(self, key):
         if not isinstance(key, (int, log)):
             print "key param must be an integer number."
@@ -158,7 +158,7 @@ class Client(Resource):
         fullname = xml_concept.getElementsByTagName("tn:nameComplete")[0].firstChild.nodeValue.encode("utf-8")
         rank = xml_concept.getElementsByTagName("tn:rankString")[0].firstChild.nodeValue.encode("utf-8")
 
-        return result_factory(key=key, primary=primary, 
+        return result_factory(key=key, primary=primary,
             fullname=fullname, status=status, rank=rank)
 
 if __name__ == "__main__":
