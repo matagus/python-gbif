@@ -17,7 +17,8 @@ class Result(object):
         self.fullname = kwargs.get("fullname")
 
     def __unicode__(self):
-        return u"%s (%s) [%s]" % (self.fullname, self.__class__.__name__, self.status)
+        return u"<%s %s key=%s status=%s>" %\
+            (self.__class__.__name__, self.fullname, self.key, self.status)
 
     def __repr__(self):
         return unicode(self)
