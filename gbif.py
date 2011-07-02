@@ -136,8 +136,7 @@ class Client(Resource):
 
     def get_by(self, key):
         if not isinstance(key, (int, long)):
-            print "key param must be an integer number."
-            return None
+            raise TypeError("Key param must be an integer number")
 
         return self.get("/key/%d/" % key, stylesheet="")
 
