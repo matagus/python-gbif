@@ -1,145 +1,43 @@
 # -*- coding: UTF-8 -*-
 import sys
 
+from urlparse import urljoin
 from xml.dom.minidom import parseString
 
 from restkit import Resource
 
-
-class Result(object):
-    """
-    """
-
-    def __init__(self, **kwargs):
-        self.key = kwargs.get("key")
-        self.primary = kwargs.get("primary")
-        self.status = kwargs.get("status")
-        self.fullname = kwargs.get("fullname")
-
-    def __unicode__(self):
-        return u"<%s %s key=%s status=%s>" %\
-            (self.__class__.__name__, self.fullname, self.key, self.status)
-
-    def __repr__(self):
-        return unicode(self)
-
-
-class Kingdom(Result):
-    """
-    """
-    pass
-
-
-class Phylum(Result):
-    """
-    """
-    pass
-
-
-class Family(Result):
-    """
-    """
-    pass
-
-
-class Class(Result):
-    """
-    """
-    pass
-
-
-class Order(Result):
-    """
-    """
-    pass
-
-
-class Genus(Result):
-    """
-    """
-    pass
-
-
-class SubGenus(Result):
-    """
-    """
-    pass
-
-
-class Species(Result):
-    """
-    """
-    pass
-
-
-class Infraspecific(Result):
-    """
-    """
-    pass
-
-
-class Variety(Result):
-    """
-    """
-    pass
-
-
-class Form(Result):
-    """
-    """
-    pass
-
-
-class NothoSpecies(Result):
-    """
-    """
-    pass
-
-
-class SubSpecies(Result):
-    """
-    """
-    pass
-
-
-def result_factory(**kwargs):
-
-    RANK_MAPPER = {
-        "kingdom": Kingdom,
-        "phylum": Phylum,
-        "class": Class,
-        "order": Order,
-        "family": Family,
-        "genus": Genus,
-        "subgenus": SubGenus,
-        "species": Species,
-        "subspecies": SubSpecies,
-        "infraspecific": Infraspecific,
-        "variety": Variety,
-        "form": Form,
-        "nothospecies": NothoSpecies,
-    }
-    return RANK_MAPPER[kwargs.get("rank")](**kwargs)
+from gbif.models import Result
 
 
 class Client(Resource):
 
     def __init__(self, **kwargs):
-        base_url = "http://data.gbif.org/ws/rest/taxon/"
-        super(Client, self).__init__(
-            base_url, follow_redirect=True, max_follow_redirect=10, **kwargs)
+        self.base_url = "http://data.gbif.org/ws/rest/taxon/"
+        super(Client, self).__init__(self.base_url,
+            follow_redirect=True, max_follow_redirect=10, **kwargs)
 
-    def search(self, name, start=0, count=50):
-        # TODO: add param
-        # rank: kingdom, phylum, class, order, family, genus, species, infraspecific
-        return self.get("/list/", scientificname=name, startindex=start,
+    def search(self, name, rank=None, start=0, count=50):
+        kwargs = dict(scientificname=name, startindex=start,
             maxresults=count, stylesheet="")
+
+        if rank:
+            kwargs.update(rank=rank)
+
+        return self.get("/list/", **kwargs)
 
     def get_by(self, key):
         if not isinstance(key, (int, long)):
             raise TypeError("Key param must be an integer number")
 
-        return self.get("/get/%d/" % key, stylesheet="")
+        path = "/get/%d/" % key
+        result_list = self.get(path, stylesheet="")
+        primary_taxon = None
+        for taxon in result_list:
+            if taxon.primary:
+                primary_taxon = taxon
+
+        primary_taxon.url = urljoin(self.base_url + path)
+        return primary_taxon
 
     def request(self, *args, **kwargs):
         resp = super(Client, self).request(*args, **kwargs)
@@ -158,7 +56,7 @@ class Client(Resource):
         fullname = xml_concept.getElementsByTagName("tn:nameComplete")[0].firstChild.nodeValue.encode("utf-8")
         rank = xml_concept.getElementsByTagName("tn:rankString")[0].firstChild.nodeValue.encode("utf-8")
 
-        return result_factory(key=key, primary=primary,
+        return Result.build_instance(key=key, primary=primary,
             fullname=fullname, status=status, rank=rank)
 
 if __name__ == "__main__":
