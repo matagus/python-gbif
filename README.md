@@ -36,22 +36,3 @@ REQUIREMENTS:
 -------------
 
 Please before using, install [restkit](http://benoitc.github.com/restkit/)
-
-
-TODO:
------
-
-    * modularize it
-    * add full unicode support
-    * add Exceptions handling and raising
-    * add caching support
-
-    * little docs
-    * test suite
-
-    * Client:
-        * get_by(key)
-        * __len__: use API count method
-        * search(...): make it lazy, use iterator in chunks to retrive the whole results.
-
-    * setup.py, register & upload to pypi
