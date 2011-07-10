@@ -1,8 +1,8 @@
 Gbif API client
 ===============
 
-A simple and pythonic client for Gbif Taxon Webservice.
-See [this](http://data.gbif.org/ws/rest/taxon) for details.
+A simple and pythonic client for Gbif Taxon Webservice. Pretty much work in progress.
+See [Gbif Taxon Webservice API](http://data.gbif.org/ws/rest/taxon) for details.
 
 
 OVERVIEW:
