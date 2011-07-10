@@ -14,11 +14,14 @@ class Result(object):
         self._childs = None
 
     def __unicode__(self):
-        return u"<%s %s key=%s status=%s>" %\
-            (self.__class__.__name__, self.fullname, self.key, self.status)
+        return self.fullname
+
+    def __str__(self):
+        return u"<%s %s key=%s status=%s>" % (self.__class__.__name__,
+            self.fullname.encode("utf-8", "ignore"), self.key, self.status)
 
     def __repr__(self):
-        return unicode(self)
+        return str(self)
 
     @staticmethod
     def build_instance(**kwargs):

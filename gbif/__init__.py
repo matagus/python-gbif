@@ -36,7 +36,7 @@ class Client(Resource):
             if taxon.primary:
                 primary_taxon = taxon
 
-        primary_taxon.url = urljoin(self.base_url + path)
+        primary_taxon.url = urljoin(self.base_url, path)
         return primary_taxon
 
     def request(self, *args, **kwargs):
@@ -50,11 +50,11 @@ class Client(Resource):
         return items
 
     def _to_item(self, xml_concept):
-        key = long(xml_concept.getAttribute("gbifKey").encode("utf-8"))
-        status = xml_concept.getAttribute("status").encode("utf-8")
+        key = long(xml_concept.getAttribute("gbifKey"))
+        status = xml_concept.getAttribute("status")
         primary = xml_concept.getElementsByTagName("tc:primary")[0].firstChild.nodeValue == "true"
-        fullname = xml_concept.getElementsByTagName("tn:nameComplete")[0].firstChild.nodeValue.encode("utf-8")
-        rank = xml_concept.getElementsByTagName("tn:rankString")[0].firstChild.nodeValue.encode("utf-8")
+        fullname = xml_concept.getElementsByTagName("tn:nameComplete")[0].firstChild.nodeValue
+        rank = xml_concept.getElementsByTagName("tn:rankString")[0].firstChild.nodeValue
 
         return Result.build_instance(key=key, primary=primary,
             fullname=fullname, status=status, rank=rank)
