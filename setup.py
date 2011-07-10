@@ -5,21 +5,19 @@ import sys
 
 from setuptools import setup, find_packages
 
-import gbif
-
 
 install_requires = ['restkit']
 long_description = codecs.open('README.md', "r", "utf-8").read()
 
 setup(
     name='gbif',
-    version=gbif.__version__,
-    description=gbif.__doc__,
+    version="0.1.0",
+    description="Basic and experimental Gbif Taxon API library for Python",
     long_description=long_description,
-    author=gbif.__author__,
-    author_email=gbif.__contact__,
-    url=gbif.__homepage__,
-    license='',
+    author="Matías Agustín Méndez",
+    author_email="matagus@gmail.com",
+    url="http://github.com/matagus/python-gbif",
+    license='MIT',
     keywords="gbif taxon taxonomy api bio",
     platforms=["any"],
     packages=find_packages(exclude=['tests']),
