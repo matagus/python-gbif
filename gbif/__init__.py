@@ -1,4 +1,12 @@
 # -*- coding: UTF-8 -*-
+"Basic and experimental Gbif Taxon API library for Python"
+VERSION = (0, 1, 0)
+
+__author__ = "Matías Agustín Méndez"
+__contact__ = "matagus@gmail.com"
+__homepage__ = "http://github.com/matagus/python-gbif"
+__version__ = ".".join(map(str, VERSION))
+
 import sys
 
 from urlparse import urljoin
