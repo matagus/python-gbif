@@ -54,7 +54,14 @@ This is the way to use it:
     <SubGenus Dendrobium key=6417149 status=unconfirmed>, <SubGenus Dendrobium key=6525783 status=unconfirmed>, 
     <SubGenus Dendrobium key=17000374 status=unconfirmed>, <SubGenus Dendrobium key=7035708 status=unconfirmed>]
 
+
+HOW TO INSTALL:
+---------------
+
+    pip install gbif
+
+
 REQUIREMENTS:
 -------------
 
-Please before using, install [restkit](http://benoitc.github.com/restkit/)
+If you are going to install it from source, **python-gbif** requires [restkit](http://benoitc.github.com/restkit/).
