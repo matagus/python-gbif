@@ -65,3 +65,7 @@ REQUIREMENTS:
 -------------
 
 If you are going to install it from source, **python-gbif** requires [restkit](http://benoitc.github.com/restkit/).
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/matagus/python-gbif/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
