@@ -1,3 +1,9 @@
+WARNING:
+========
+
+This client **no longer works**. There's a [new API](http://www.gbif.org/developer/summary) for getting this information. 
+
+
 Gbif API client
 ===============
 
